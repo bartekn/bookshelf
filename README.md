@@ -1,3 +1,9 @@
+## Differences from `tgriesser/bookshelf`
+
+* [6064486](commit/6064486) - Support `forUpdate()` and `forShare()` selects
+* [5c01eeb](commit/5c01eeb) - Update only `Model.changed` fields
+
+
 # [bookshelf.js](http://bookshelfjs.org) [![Build Status](https://travis-ci.org/tgriesser/bookshelf.png?branch=master)](https://travis-ci.org/tgriesser/bookshelf)
 
 Bookshelf is a Node.js ORM with support for PostgreSQL, MySQL / MariaDB, and SQLite3.
