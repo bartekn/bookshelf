@@ -149,7 +149,27 @@ Bookshelf.initialize = function(knex) {
   });
   Model.fetchAll = function(options) { return this.forge().fetchAll(options); };
 
-  Model.extend = Collection.extend = require('simple-extend');
+  Model.count = function() {
+    return this.query().count('* as count').first()
+      .then(function(result) {
+        return result.count;
+      });
+  };
+
+  Model.extend = function(protoProps, staticProps) {
+    var ExtendedModel = require('simple-extend').call(this, protoProps, staticProps);
+
+    if (protoProps.tableName) {
+      bookshelf.knex.raw('SHOW COLUMNS FROM '+protoProps.tableName)
+        .then(function(results) {
+          ExtendedModel.prototype.columns = _.pluck(results[0], 'Field');
+        });
+    }
+
+    return ExtendedModel;
+  };
+
+  Collection.extend = require('simple-extend');
 
   return bookshelf;
 };
